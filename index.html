@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Мои цитаты дня</title><style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Georgia,serif;color:#623a4a;background:#ffe4ed;display:flex;align-items:center;justify-content:center;text-align:center;transition:background .5s}.wrap{width:min(92%,650px);padding:32px 8px}.clock{font-size:clamp(48px,12vw,78px);margin:0}.date{letter-spacing:2px;text-transform:uppercase;font:14px Arial,sans-serif;margin:8px 0 20px}.greet{font-size:27px;font-style:italic;margin-bottom:28px}.card{padding:32px 22px;background:#ffffffbb;border:2px solid white;border-radius:35px;box-shadow:0 12px 35px #c46b8c30}.label{font:13px Arial,sans-serif;letter-spacing:3px;color:#c25b7a;text-transform:uppercase}.quote{font-size:clamp(25px,6vw,36px);line-height:1.35;margin:25px 0}.author{font-size:18px}button{margin:26px 0 8px;border:0;border-radius:30px;background:white;color:#793d54;padding:16px 28px;font-size:17px;cursor:pointer;box-shadow:0 7px 20px #a05b7933}.foot{font:13px Arial,sans-serif;color:#936778;margin-top:16px}
+</style></head><body><main class="wrap"><div id="clock" class="clock"></div><div id="date" class="date"></div><div class="greet">Хорошего дня! ♡</div><section class="card"><div class="label">Цитата дня</div><div id="quote" class="quote"></div><div class="author">— Мои мысли</div></section><button id="another">♡ Другая цитата</button><div class="foot">Каждый день — новая мысль и новые обои</div></main><script>
+// ✏️ ЗАМЕНИ ЭТИ ЦИТАТЫ НА СВОИ. Можно добавлять сколько угодно.
+const quotes = [
+  'Иногда самое важное приходит неожиданно.',
+  'Не бойся начинать всё сначала.',
+  'Сегодня ты ближе к мечте, чем вчера.',
+  'Красота прячется в маленьких моментах.',
+  'Пусть этот день принесёт что-то доброе.'
+];
+// 🎨 ОБОИ ДНЯ: цвета или изображения. Для картинки вместо цвета
+// укажи, например: "url('wallpapers/flowers.jpg') center/cover fixed".
+const wallpapers = ['#ffe4ed','#e9e2ff','#dff5e7','#fff0d8','#e0f1ff'];
+function dayNumber(d){return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000)}
+const today=dayNumber(new Date());let index=((today%quotes.length)+quotes.length)%quotes.length;
+function show(){document.getElementById('quote').textContent=quotes[index];document.body.style.background=wallpapers[((today%wallpapers.length)+wallpapers.length)%wallpapers.length]}
+function updateClock(){const d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});document.getElementById('date').textContent=d.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});if(dayNumber(d)!==today)location.reload()}
+document.getElementById('another').addEventListener('click',()=>{index=(index+1)%quotes.length;show()});show();updateClock();setInterval(updateClock,1000);
+</script></body></html>
